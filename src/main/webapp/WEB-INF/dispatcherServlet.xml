@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+>
+    <!-- mvc 패턴 즉, @controller 를 사용하고 싶으면 적어주어야 함 -->
+    <mvc:annotation-driven />
+    <!-- 어노테이션(@)를 사용하고 싶다면.. -->
+    <context:annotation-config />
+    <!-- 어노테이션으로 빈 등록할 클래스들을 스캔 뜨는 시작 패키지를 설정 -->
+    <context:component-scan base-package="com.koreait.spring" />
+    <!-- 사용할 파일명(문장)을 완성해주는 객체 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />  <!-- 문장 앞 -->
+        <property name="suffix" value=".jsp" />    <!-- 문장 뒤 -->
+    </bean>
+</beans>
