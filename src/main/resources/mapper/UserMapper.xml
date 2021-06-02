@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.spring.user.UserMapper">
+    <insert id="insUser">
+        INSERT INTO t_user
+        (uid, upw, unm, gender)
+        VALUES
+        (#{uid}, #{upw}, #{unm}, #{gender})
+    </insert>
+</mapper>
+
+<!--
+    values 의 값은 service 가 넘겨줄 param 객체에 담긴 값 (UserEntity 의 멤버 변수)
+    #는 문자열, $는 숫자
+
+    interface 를 xml 이 구현하고 있는 느낌.
+-->

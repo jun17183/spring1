@@ -21,6 +21,7 @@
             <param-name>contextConfigLocation</param-name>   <!-- 멤버필드명 -->
             <param-value>/WEB-INF/dispatcherServlet.xml</param-value> <!-- 멤버필드 setter -->
         </init-param>
+        <load-on-startup>1</load-on-startup>    <!-- 서블릿 중 제일 처음 시작하라는 설정. 사실 당장은 필요 X -->
     </servlet>
 
     <servlet-mapping>

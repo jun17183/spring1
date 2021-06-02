@@ -31,7 +31,7 @@
 
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+            <artifactId>spring-jdbc</artifactId>    <!-- Java DataBase Connectivity -->
             <version>${spring-version}</version>
         </dependency>
 
@@ -103,7 +103,15 @@
     pom.xml 에서 디펜던시를 적어뒀기 때문에 다시 자동으로 다운한다.
 -->
 <!--
+    <Context>
+    서블릿, 프린터 등은 한번 로드가 되면 메모리에 로드된 채 남아있는다. 이때 다시 한번 호출이 된다면
+    이미 로드된 서블릿, 프린터 등을 바로 응답한다.
+    이런 서블릿, 프린터와 같이 해당 task 들의 수행상태를 기억하기 위해 task 마다 실행 상태에 대한
+    정보를 구성하고 있는 것을 "Context"라고 한다.
+-->
+<!--
     hikariCP -> connection pool
     jsp 때는 db 연결을 항상 만들고 닫고 만들고 닫고를 반복했는데 이는 메모리를 많이 잡아먹음
     cp는 미리 3~5개의 연결을 만들어놓고 필요할 때 전달을 해준다.
 -->
+
