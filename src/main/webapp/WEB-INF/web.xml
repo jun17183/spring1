@@ -43,3 +43,14 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 </web-app>
+
+<!--
+    servlet-mapping dispatcher 부분에서...
+    url 패턴을 /로 해서 모든 요청을 디스패쳐가 잡음. css나 js 마저도.
+    근데 디스페처가 요청을 잡으면 컨트롤러를 거침. 근데 우리는 css나 js를 컨트롤러를 통해
+    요청을 받아 뿌리지를 않음. 그래서 css, js 등을 예외로 해줌
+
+    예외 설정은 dispatcherServlet 에서..
+
+    (폴더 자체 보안은 WEB-INF!!)
+-->

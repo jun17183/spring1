@@ -17,38 +17,21 @@
     <!-- 애노테이션으로 빈 등록할 클래스들을 스캔뜨는 시작 패키지를 설정 -->
     <context:component-scan base-package="com.koreait.spring" />
 
+    <mvc:resources mapping="/res/**" location="/res/" />
+
     <!-- 사용할 파일명을 완성해주는 객체 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/views/" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/views/" /> <!-- 문장 앞 -->
+        <property name="suffix" value=".jsp" /> <!-- 문장 뒤 -->
     </bean>
-
 </beans>
 
-<!--<?xml version="1.0" encoding="UTF-8"?>-->
-<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
-<!--       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-<!--       xmlns:context="http://www.springframework.org/schema/context"-->
-<!--       xsi:schemaLocation="http://www.springframework.org/schema/beans-->
-<!--        http://www.springframework.org/schema/beans/spring-beans.xsd-->
-<!--        http://www.springframework.org/schema/context-->
-<!--        http://www.springframework.org/schema/context/spring-context-4.2.xsd">-->
-
-<!--&gt;-->
-<!--        &lt;!&ndash; mvc 패턴 즉, @controller 를 사용하고 싶으면 적어주어야 함 &ndash;&gt;-->
-<!--        <mvc:annotation-driven />-->
-<!--        &lt;!&ndash; 어노테이션(@)를 사용하고 싶다면.. &ndash;&gt;-->
-<!--        <context:annotation-config />-->
-<!--        &lt;!&ndash; 어노테이션으로 빈 등록할 클래스들을 스캔 뜨는 시작 패키지를 설정 &ndash;&gt;-->
-<!--        <context:component-scan base-package="com.koreait.spring" />-->
-<!--        &lt;!&ndash; 사용할 파일명(문장)을 완성해주는 객체 &ndash;&gt;-->
-<!--        <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-<!--            <property name="prefix" value="/WEB-INF/views/" />  &lt;!&ndash; 문장 앞 &ndash;&gt;-->
-<!--            <property name="suffix" value=".jsp" />    &lt;!&ndash; 문장 뒤 &ndash;&gt;-->
-<!--        </bean>-->
-<!--</beans>-->
-<!--    -->
-<!--    &lt;!&ndash;-->
-<!--        context:component-scan 은 base-package 에 입력한 패키지에서 @이 붙은 친구들을 스캔한다.-->
-<!--        그렇게 스캔된 친구들을 bean 에 등록하여 객체로 만든다.-->
-<!--    &ndash;&gt;-->
+<!--
+    context:component-scan 은 base-package 에 입력한 패키지에서 @이 붙은 친구들을 스캔한다.
+    그렇게 스캔된 친구들을 bean 에 등록하여 객체로 만든다.
+-->
+<!--
+    /res/** : 아래 모든 경로 다 포함. n차 주소 모두.
+    /res/~ 로 들어온 요청은 /res/** 경로로 매핑한다는 뜻
+    <mvc:resource>에 대한 자세한 설명은 web.xml 으로...
+-->
