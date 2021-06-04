@@ -3,6 +3,10 @@
 <html>
 <head>
     <meta charset="UTF-8">  <!-- 필수 -->
+    <link rel="stylesheet" href="/res/css/common.css">
+    <link rel="stylesheet" href="/res/css/boardList.css">
+    <script defer src="/res/js/common.js"></script>
+    <script defer src="/res/js/boardList.js"></script>
     <title>List</title>
 </head>
 <body>

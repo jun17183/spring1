@@ -73,23 +73,3 @@ public class UserController {
 // (사실 defaultValue를 주었기에 required는 없어도 큰 상관이 없다.)
 // 문자열을 넘겨줄 경우 값을 넘겨주기 싫을 땐 그냥 required만 해줘도 된다.
 // string은 int와 달리 null을 받을 수 있기 때문
-
-// <out과 target 폴더>
-// out은 서버(톰캣)에서 가동될 때, target은 실제 배포할 때 올라가는 폴더
-
-// ###### 에러 ######
-// >> dispatcher not found
-// - 서버 가동 오류 중 무슨 짓을 해도 dispatcher가 [/user/login] 등을 못찾는다고 나오면
-//   out의 artifacts 폴더를 한번 지워보는 것도 좋은 방법
-
-// >> sessionFactory
-// - sessionFactory 관련 에러가 뜰 경우 applicationContext의 sessionFactory의 value 값에 오타가 있는지 확인
-
-// >> Library, ClassNotFoundException
-// - 디펜던시에 라이브러리 추가 후 항상 open modules의 artifact에서 라이브러리를 넣어주어야 함
-//   artifact는 서버 가동 시 실행되는 out 폴더에 있는 폴더임. 우리가 사용하는 폴더에는 라이브러리가 적용이 되었지만
-//   서버에는 아직 라이브러리가 적용되지 않은 상태이기 때문에 항상 넣어주저야 함
-//   (라이브러리를 가져왔는데도 ClassNotFoundException 에러가 나오면 위 처리를 안 했을 가능성이 큼)
-
-// >> 이미지나 경로 등과 관련된 문제
-// - 일단 리빌드해보기, 그래도 안 되면 out 폴더의 artifact 삭제
