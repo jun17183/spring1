@@ -36,11 +36,14 @@ public class BoardController {
     // 그 DTO(param)을 바로 메서드 전달인자로 보내주면 된다.
 
     @ResponseBody
-    @RequestMapping(value = "/cmtInsSel", method = RequestMethod.POST)
-    public Map<String, Integer> cmtInsSel(@RequestBody BoardCmtEntity param) {   // key => String, value = Int
+    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
+    public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param) {   // key => String, value = Int
         System.out.println("param : " + param);
-        Map<String, Integer> data = new HashMap<>();
-        data.put("result", 1);
+
+        int result = service.insBoardCmt(param);
+
+        Map<String, Integer> data = new HashMap();
+        data.put("result", result);
 
         return data;
     }
@@ -48,5 +51,17 @@ public class BoardController {
     // @ResponseBody를 붙여주면 요청이 들어온 데이터를 문자열 형태로 변경해준다. 특히 json 형태의 문자열로.
     // 만약 @ResponseBody를 붙여준 상태로 객체를 리턴해주면 해당 객체를 json 형태로 변환한 문자열로 리턴
     // (ResponseBody를 사용하려면 jackson이나 gson같은 라이브러리 설치가 우선적으로 필요함)
+
+    @ResponseBody
+    @RequestMapping(value = "/cmtSel")
+    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param) {
+        System.out.println("param : " + param);
+        List<BoardCmtDomain> list = service.selBoardCmtList(param);
+
+        return list;
+    }
+    // get방식으로 받을 땐 매개변수에 RequestBody 적으면 안 됨
+    // 왜냐하면 위의 post 방식은 값을 json 형태로 받아왔기 때문이고 지금은 그냥 문자열 주소값으로 받아오기 때문
 }
 
+// RestController 라는 친구가 있는데, 이 친구는 @ResponseBody를 안 적어도 모든 메서드에 ResponseBody가 박힘

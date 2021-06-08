@@ -26,15 +26,5 @@
     </c:if>
     <div id="cmtList" data-login_user_pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}"></div>
 
-    <div id="modal" class="displayNone">
-        <div class="modal_content">
-            <form id="cmtModFrm" action="#">
-                <input type="hidden" id="icmt">
-                <input type="text" name="cmt">
-            </form>
-            <input type="button" value="댓글 수정" onclick="modAjax();">
-            <input type="button" value="취소" onclick="closeModModal();">
-        </div>
-    </div>
 </body>
 </html>
