@@ -3,10 +3,7 @@ package com.koreait.spring.board;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +33,7 @@ public class BoardController {
     // 그 DTO(param)을 바로 메서드 전달인자로 보내주면 된다.
 
     @ResponseBody
-    @RequestMapping(value = "/cmtIns", method = RequestMethod.POST)
+    @RequestMapping(value = "/cmt", method = RequestMethod.POST)
     public Map<String, Integer> cmtIns(@RequestBody BoardCmtEntity param) {   // key => String, value = Int
         System.out.println("param : " + param);
 
@@ -53,15 +50,40 @@ public class BoardController {
     // (ResponseBody를 사용하려면 jackson이나 gson같은 라이브러리 설치가 우선적으로 필요함)
 
     @ResponseBody
-    @RequestMapping(value = "/cmtSel")
-    public List<BoardCmtDomain> cmtSel(BoardCmtEntity param) {
-        System.out.println("param : " + param);
+    @RequestMapping(value = "/cmt/{iboard}")
+    public List<BoardCmtDomain> cmtSel(@PathVariable("iboard") int iboard) {    // 이름이 일치하면 ("iboard") 생략 가능
+        BoardCmtEntity param = new BoardCmtEntity();
+        param.setIboard(iboard);
         List<BoardCmtDomain> list = service.selBoardCmtList(param);
 
         return list;
     }
     // get방식으로 받을 땐 매개변수에 RequestBody 적으면 안 됨
     // 왜냐하면 위의 post 방식은 값을 json 형태로 받아왔기 때문이고 지금은 그냥 문자열 주소값으로 받아오기 때문
+
+    @ResponseBody
+    @RequestMapping(value = "/cmt/{icmt}", method = RequestMethod.DELETE)
+    public Map<String, Integer> cmtDel(@PathVariable int icmt) {
+        BoardCmtEntity param = new BoardCmtEntity();
+        param.setIboard(icmt);
+        int result = service.delBoardCmt(param);
+
+        Map<String, Integer> data = new HashMap();
+        data.put("result", result);
+
+        return data;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/cmt", method = RequestMethod.PUT)
+    public Map<String, Integer> cmtMod(@RequestBody BoardCmtEntity param) {
+        int result = service.modBoardCmt(param);
+
+        Map<String, Integer> data = new HashMap();
+        data.put("result", result);
+
+        return data;
+    }
 }
 
 // RestController 라는 친구가 있는데, 이 친구는 @ResponseBody를 안 적어도 모든 메서드에 ResponseBody가 박힘

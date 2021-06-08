@@ -18,4 +18,15 @@
         WHERE A.iboard = #{iboard}
         ORDER BY A.icmt;
     </select>
+
+    <delete id="delBoardCmt">
+        DELETE FROM t_board_cmt
+        WHERE icmt = #{icmt} AND iuser = #{iuser};
+    </delete>
+
+    <update id="modBoardCmt">
+        UPDATE t_board_cmt
+        SET cmt = #{cmt}
+        WHERE icmt = #{icmt} AND iuser = #{iuser};;
+    </update>
 </mapper>

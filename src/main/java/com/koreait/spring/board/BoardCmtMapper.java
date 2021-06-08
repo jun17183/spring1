@@ -8,6 +8,8 @@ import java.util.List;
 public interface BoardCmtMapper {
     int insBoardCmt(BoardCmtEntity param);
     List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param);
+    int delBoardCmt(BoardCmtEntity param);
+    int modBoardCmt(BoardCmtEntity param);
 }
 
 // interface 메서드들에 public abstract가 없는 이유는,,, 사실 무조건 public abstract만이 올 수 있기에

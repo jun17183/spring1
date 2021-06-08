@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/user")    // 1차 주소
@@ -44,6 +45,20 @@ public class UserController {
         service.join(param);
         return "redirect:/user/login";
     }
+
+    @RequestMapping("/profile")
+    public String profile() {
+        return "user/profile";
+    }
+
+    // @PostMapping("/profile") 이렇게만 적어줄 수도 있다.
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public String profile(MultipartFile profileImg) {
+        return "redirect:" + service.uploadProfile(profileImg);
+    }
+    // 파일을 하나 보낼 땐 배열말고 그냥 multipartfile만, 아니면 배열까지.
+    // 매개변수 명은 form의 input name이랑 맞춰주는 것이 좋다. 아니면 뭐 손봐야 함
+    // (사실 file은 괜찮은데 다른 경우에는 이름이 다르면 추가로 적어줄게 필요함)
 }
 
 // Controller : Mapping 담당. 연결 담당 *

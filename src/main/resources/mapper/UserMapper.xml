@@ -14,6 +14,19 @@
         SELECT * FROM t_user
         WHERE uid = #{uid}
     </select>
+
+    <update id="updUser">
+        UPDATE t_user
+        <set>
+            <if test="upw != null and upw != ''">
+                upw = #{upw}
+            </if>
+            <if test="profileImg != null and profileImg != ''">
+                profileImg = #{profileImg}
+            </if>
+        </set>
+        WHERE iuser = #{iuser}
+    </update>
 </mapper>
 
 <!--
@@ -38,4 +51,8 @@
     (사실 alias 를 안 줘도 자동으로 동일한 이름의 alias 를 생성해 주기에, 등록 없이 UserEntity 를 적어줘도 된다.)
 
     resultType 은 생략하면 안 됨!
+
+    =============================
+
+    <set> 이 친구는 콤마가 필요하면 자동으로 넣어주고 적혀있는데 필요없으면 빼줌
 -->

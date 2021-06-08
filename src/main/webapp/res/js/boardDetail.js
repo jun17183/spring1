@@ -22,7 +22,7 @@ function regAjax(param) {
 		}
 	};
 	
-	fetch('cmtIns', init)
+	fetch('cmt', init)
 	.then(function(res) {
 		return res.json();
 	})
@@ -45,7 +45,7 @@ function regAjax(param) {
 function getListAjax() {
 	var iboard = cmtListElem.dataset.iboard;
 	
-	fetch('cmtSel?iboard=' + iboard)
+	fetch('cmt/' + iboard)
 	.then(function(res) {
 		return res.json();
 	})
@@ -126,7 +126,7 @@ function makeCmtElemList(data) {
 }
 
 function delAjax(icmt) {
-	fetch('cmtDelUpd?icmt=' + icmt)
+	fetch('cmt/' + icmt, { method: 'DELETE' })
 	.then(function(res) {
 		return res.json();
 	})
@@ -148,15 +148,19 @@ function modAjax() {
 	var cmtModFrmElem = document.querySelector('#cmtModFrm');
 	var param = {
 		icmt: cmtModFrmElem.icmt.value,
-		cmt: cmtModFrmElem.cmt.value
+		cmt: cmtModFrmElem.querySelector('#modalCmt').value
 	}
 	
 	const init = {
-		method: 'POST',				
-	    body: new URLSearchParams(param)
+		method: 'PUT',
+		body: JSON.stringify(param),
+		headers: {
+			'accept': 'application/json',
+			'content-type': 'application/json;chartset=UTF-8'
+		}
 	};
 	
-	fetch('cmtDelUpd', init)
+	fetch('cmt/', init)
 	.then(function(res) {
 		return res.json();
 	})
@@ -173,22 +177,31 @@ function modAjax() {
 	});
 }
 
-function openModModal({icmt, cmt}) {	
+function openModModal({icmt, cmt}) {
 	cmtModModalElem.className = '';
 	
 	var cmtModFrmElem = document.querySelector('#cmtModFrm');
 	cmtModFrmElem.icmt.value = icmt;
-	cmtModFrmElem.cmt.value = cmt;
+	cmtModFrmElem.querySelector('#modalCmt').value = cmt;
 }
 
 function closeModModal() {
 	cmtModModalElem.className = 'displayNone';
 }
 
- getListAjax(); //이 파일이 임포트되면 함수 1회 호출!
+getListAjax(); //이 파일이 임포트되면 함수 1회 호출!
 
 
-
+/*
+	/cmt
+	C : insert - post		-> /cmt
+	R : select - get(1줄)	-> /cmt/5
+	  : select - get(여러줄)	-> /cmt
+	U : update - put		-> /cmt
+	D : delete - delete		-> /cmt/12
+	(/cmt?icmt=12 한 줄 select는 원래 이건데 댓글은 한 줄 select가 없고
+	 해당 게시글의 댓글 전부를 가져오는 식이라 /cmt?iboard가 됨)
+ */
 
 
 

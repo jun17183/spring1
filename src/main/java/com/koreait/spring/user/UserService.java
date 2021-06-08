@@ -1,10 +1,15 @@
 package com.koreait.spring.user;
 
+import org.apache.commons.io.FilenameUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -32,6 +37,34 @@ public class UserService {
         String cryptPw = BCrypt.hashpw(param.getUpw(),BCrypt.gensalt());
         param.setUpw(cryptPw);
         return mapper.insUser(param);
+    }
+
+    public String uploadProfile(MultipartFile profileImg) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        final String PATH = "D:/springImg/" + loginUser.getIuser();
+
+        File folder = new File(PATH);
+        folder.mkdir();
+
+        String ext = FilenameUtils.getExtension(profileImg.getOriginalFilename());  // 업로드한 파일의 확장자
+        String fileNm = UUID.randomUUID().toString() + "." + ext;   // 랜덤 파일명 + 확장자
+
+        File target = new File(PATH + "/" + fileNm);
+        try {
+            profileImg.transferTo(target);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        UserEntity param = new UserEntity();
+        param.setIuser(loginUser.getIuser());
+        param.setProfileImg(fileNm);
+
+        mapper.updUser(param);
+        loginUser.setProfileImg(fileNm);    // 기존의 로그인된 유저 이미지도 변경해주어야 함
+
+
+        return "/user/profile";
     }
 }
 

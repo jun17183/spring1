@@ -36,4 +36,16 @@ public class BoardService {
     public List<BoardCmtDomain> selBoardCmtList(BoardCmtEntity param) {
         return cmtMapper.selBoardCmtList(param);
     }
+
+    public int delBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.delBoardCmt(param);
+    }
+
+    public int modBoardCmt(BoardCmtEntity param) {
+        UserEntity loginUser = (UserEntity) session.getAttribute("loginUser");
+        param.setIuser(loginUser.getIuser());
+        return cmtMapper.modBoardCmt(param);
+    }
 }
