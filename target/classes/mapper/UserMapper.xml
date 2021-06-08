@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.spring.user.UserMapper">
+    <insert id="insUser" parameterType="UserEntity">
+        INSERT INTO t_user
+        (uid, upw, unm, gender)
+        VALUES
+        (#{uid}, #{upw}, #{unm}, #{gender})
+    </insert>
+
+    <select id="selUser" resultType="UserEntity">
+        SELECT * FROM t_user
+        WHERE uid = #{uid}
+    </select>
+</mapper>
+
+<!--
+    values 의 값은 service 가 넘겨줄 param 객체에 담긴 값 (UserEntity 의 멤버 변수)
+    #는 문자열, $는 숫자 (사실 $는 거의 쓸 일이 없다. 숫자여도 그냥 # 이라고 해도 된다.)
+
+    정확히 말하면 #는 ''가 붙고 $는 붙지 않음. 근데 가끔 $가 필요한 경우가 있음.
+    만약 board_game, board_sports 등의 db를 짜야 할 때,
+    board_#{menu} 이런 식으로 하면 board_'game' 이 되기에 오류가 터진다.
+    board_${menu} 라고 한다면 board_game 이 정상적으로 찍힌다.
+
+    =========================================================================
+
+    #{} 안에 들어갈 값은 DB에 있는 실제 칼럼 명과 일치해야 한다. (=해당 칼럼을 넣는다는 말)
+
+    =========================================================================
+
+    interface 를 xml 이 구현하고 있는 느낌.
+
+    parameterType 생략 가능.
+    원래는 값으로 해당 값의 풀 주소를 적어야 하는데, UserEntity 파일에서 alias 를 해주었기에 그냥 저렇게 적어도 됨.
+    (사실 alias 를 안 줘도 자동으로 동일한 이름의 alias 를 생성해 주기에, 등록 없이 UserEntity 를 적어줘도 된다.)
+
+    resultType 은 생략하면 안 됨!
+-->

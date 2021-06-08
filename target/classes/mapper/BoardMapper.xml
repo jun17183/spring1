@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.koreait.spring.board.BoardMapper">
+    <select id="selBoardList" resultType="BoardDomain">
+        SELECT A.iboard, A.title, A.iuser, A.regdt, B.unm AS writerNm, B.profileImg
+        FROM t_board A
+        INNER JOIN t_user B
+        ON A.iuser = B.iuser
+        ORDER BY A.iboard DESC
+    </select>
+
+    <select id="selBoard" resultType="BoardDomain">
+        SELECT A.iboard, A.iuser, A.title, A.ctnt, A.regdt, B.unm AS writeNm, B.profileImg
+        FROM t_board A
+        LEFT JOIN t_user B
+        ON A.iuser = B.iuser
+        WHERE A.iboard = #{iboard}
+    </select>
+</mapper>
+
+<!--
+    BoardDTO param을 보내면 알아서 그 친구를 받고
+    #{iboard}라고 적어두면 받은 친구의 iboard를 자동으로 뽑아서 넣음
+-->

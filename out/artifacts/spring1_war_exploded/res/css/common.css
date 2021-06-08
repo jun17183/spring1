@@ -1,0 +1,25 @@
+@charset "UTF-8";
+html, body, ul { margin: 0; padding: 0; }
+header nav { height: 50px; background-color: #3498db; }
+header nav ul { 
+	display: flex;
+	height: 100%;
+	align-content: center;
+	list-style: none;
+}
+
+header nav ul li { margin-left: 20px;}
+section { padding-left: 40px; padding-right: 40px;}
+
+.colorRed { color: red; }
+.displayNone { display: none !important; }
+
+
+
+
+
+
+
+
+
+

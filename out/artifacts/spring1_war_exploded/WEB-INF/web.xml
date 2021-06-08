@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <display-name>spring1</display-name>
+    
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>   <!-- 멤버필드명 -->
+            <param-value>/WEB-INF/dispatcherServlet.xml</param-value> <!-- 멤버필드 setter -->
+        </init-param>
+        <load-on-startup>1</load-on-startup>    <!-- 서블릿 중 제일 처음 시작하라는 설정. 사실 당장은 필요 X -->
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>    <!-- / : 모든 요청을 이 디스패쳐서블릿이 잡음 -->
+    </servlet-mapping>
+    
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+</web-app>
+
+<!--
+    servlet-mapping dispatcher 부분에서...
+    url 패턴을 /로 해서 모든 요청을 디스패쳐가 잡음. css나 js 마저도.
+    근데 디스페처가 요청을 잡으면 컨트롤러를 거침. 근데 우리는 css나 js를 컨트롤러를 통해
+    요청을 받아 뿌리지를 않음. 그래서 css, js 등을 예외로 해줌
+
+    예외 설정은 dispatcherServlet 에서..
+
+    (폴더 자체 보안은 WEB-INF!!)
+-->
