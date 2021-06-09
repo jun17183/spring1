@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">  <!-- 필수 -->
     <link rel="stylesheet" href="/res/css/common.css">
-    <link rel="stylesheet" href="/res/css/boardList.css">
+    <link rel="stylesheet" href="/res/css/board/list.css">
     <script defer src="/res/js/common.js"></script>
-    <script defer src="/res/js/boardList.js"></script>
+    <script defer src="/res/js/board/list.js"></script>
     <title>List</title>
 </head>
 <body>
@@ -38,7 +38,7 @@
                 <c:when test="${empty item.profileImg}">
                     <c:set var="img" value="/res/img/noprofile.jpg"/>
                 </c:when>
-                <c:otherwise>
+                <c:otherwise>   <!-- c:set은 페이지컨텍스트에 해당 데이터를 저장함 -->
                     <c:set var="img" value="/img/${item.iuser}/${item.profileImg}"/>
                 </c:otherwise>
             </c:choose>

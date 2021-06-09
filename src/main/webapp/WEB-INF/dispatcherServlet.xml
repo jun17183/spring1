@@ -20,16 +20,28 @@
     <mvc:resources mapping="/res/**" location="/res/" />
     <mvc:resources mapping="/img/**" location="file:///D:/springImg/" />
 
-    <!-- 사용할 파일명을 완성해주는 객체 -->
+    <!-- 사용할 파일명을 완성해주는 객체. controller에서 보내온 view이름을 받아 앞뒤로 해당 value 붙임 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" /> <!-- 문장 앞 -->
         <property name="suffix" value=".jsp" /> <!-- 문장 뒤 -->
+        <property name="order" value="2" />
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="order" value="1" />
     </bean>
 
     <!-- 문자열 <-> json 변환을 도와주는 라이브러리 -->
     <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" />
 
-
+    <bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">   <!-- definations 라는 명의 멤버필드에 담긴 값이 list -->
+            <list>
+                <value>/WEB-INF/tiles.xml</value>
+            </list>
+        </property>
+    </bean>
 
 </beans>
 
@@ -41,4 +53,11 @@
     /res/** : 아래 모든 경로 다 포함. n차 주소 모두.
     /res/~ 로 들어온 요청은 /res/** 경로로 매핑한다는 뜻
     <mvc:resource>에 대한 자세한 설명은 web.xml 으로...
+-->
+<!--
+    기존에는 viewResolver로 파일을 열었음
+    근데 이제는 order=1로 tiles가 가장 먼저 파일을 열도록 만들고
+    시도해보고 안되면 viewResolver로 여는 시스템
+
+    그 타일즈에 대한 설정파일을 임포트하는 부분이 아래 bean에 TilesConfigurer 부분
 -->

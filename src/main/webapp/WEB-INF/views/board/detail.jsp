@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/res/css/common.css">
-    <link rel="stylesheet" href="/res/css/boardDetail.css">
+    <link rel="stylesheet" href="/res/css/board/detail.css">
     <script defer src="/res/js/common.js"></script>
-    <script defer src="/res/js/boardDetail.js"></script>
+    <script defer src="/res/js/board/detail.js"></script>
     <title>Detail</title>
 </head>
 <body>
